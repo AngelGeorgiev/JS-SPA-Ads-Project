@@ -1,3 +1,5 @@
+'use strict';
+
 var Advertisements = angular.module('Advertisements', ['ngRoute'])
     .config(function ($routeProvider) {
         $routeProvider
@@ -13,6 +15,7 @@ var Advertisements = angular.module('Advertisements', ['ngRoute'])
                 templateUrl:'templates/all-ads.html',
                 controller:'MainController'
             })
-            .otherwise({redirectTo: '/  '})
+            .otherwise({redirectTo: '/'})
 
     });
+angular.module('Authentication', []);

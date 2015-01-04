@@ -1,0 +1,29 @@
+<div class="navbar navbar-default navbar-fixed-top" ng-controller="NavbarController">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="../#/" class="navbar-brand">Advertisements</a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main" aria-expanded="false">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse in" id="navbar-main" aria-expanded="false">
+            <ul class="nav navbar-nav" ng-show="!userData.username">
+                <li><a href="../#/login">Login</a></li>
+                <li><a href="../#/register">Register</a></li>
+            </ul>
+            <ul class="nav navbar-nav" ng-show="userData.username">
+                <li><a href="../#/">Home</a></li>
+                <li><a href="../#/">My Ads</a></li>
+                <li><a href="../#/">Publish New Ad</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" ng-show="userData.username">
+                <li><a href="../#/user/" ng-bind="userData.username"></a></li>
+                <li><a href="../#/">Edit Profile</a></li>
+                <li><a href="../#/admin/">Admin options</a></li>
+                <li><a href="../#/" ng-click="logout()">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
