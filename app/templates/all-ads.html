@@ -1,6 +1,46 @@
-<div class="well bs-component col-lg-9">
-    Ads
+<div class="container bs-component col-lg-9">
+    <div class="well row" ng-repeat="ad in data.ads">
+        <div class="col-lg-9">
+            <h1>{{ad.title}}</h1>
+            <p class="lead">{{ad.text}}</p>
+            <div class="row">
+                <div class="col-md-4 btn-group-vertical">
+                    <a href="#" class="btn btn-default disabled">Owner</a>
+                    <a href="#" class="btn btn-default disabled">E-mail</a>
+                    <a href="#" class="btn btn-default disabled">Phone</a>
+                </div>
+                <div class="col-md-8 btn-group-vertical">
+                    <a href="#" class="btn btn-default">{{ad.ownerName}}</a>
+                    <a href="#" class="btn btn-default">{{ad.ownerEmail}}</a>
+                    <a href="#" class="btn btn-default">{{ad.ownerPhone}}</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <p class="pull-right">{{ad.date | date: "dd MMMM yyyy"}}</p>
+            <div class="bs-component pull-right">
+                <span class="label label-success">{{categories[ad.categoryId-1].name}}</span>
+                <span class="label label-warning">{{towns[ad.townId-1].name}}</span>
+            </div>
+            <hr class="pull-right"/>
+            <img src="" class="pull-right img-responsive img-thumbnail" ng-src="{{ad.imageDataUrl || '/resources/9gag-no.jpg'}}" />
+        </div>
+    </div>
 </div>
-<div class="well bs-component col-lg-3">
-    Filters
+<div class="bs-component col-lg-3 aside">
+    <div class="row">
+        <div class="btn-group-vertical col-lg-12">
+            <a href="#" class="btn btn-success btn-lg disabled">Categories</a>
+            <a href="#" class="btn btn-default">All</a>
+            <a href="#" class="btn btn-default" ng-repeat="category in categories">{{category.name}}</a>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="btn-group-vertical col-lg-12">
+            <a href="#" class="btn btn-warning btn-lg disabled">Towns</a>
+            <a href="#" class="btn btn-default">All</a>
+            <a href="#" class="btn btn-default" ng-repeat="town in towns">{{town.name}}</a>
+        </div>
+    </div>
 </div>

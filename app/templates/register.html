@@ -42,11 +42,7 @@
                 <label for="selectTown" class="col-lg-2 control-label">Town</label>
                 <div class="col-lg-10">
                     <select class="form-control" id="selectTown">
-                        <option>Sofia</option>
-                        <option selected>Plovdiv</option>
-                        <option>Varna</option>
-                        <option>Burgas</option>
-                        <option>Veliko Turnovo</option>
+                        <option ng-repeat="town in towns">{{town.name}}</option>
                     </select>
                 </div>
             </div>

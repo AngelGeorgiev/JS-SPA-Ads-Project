@@ -13,5 +13,6 @@ var Advertisements = angular.module('Advertisements', ['ngRoute'])
                 templateUrl:'templates/all-ads.html',
                 controller:'MainController'
             })
+            .otherwise({redirectTo: '/  '})
 
     });
