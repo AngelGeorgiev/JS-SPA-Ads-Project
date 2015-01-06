@@ -1,22 +1,35 @@
 
 <div ng-include="'templates/navbar.html'"></div>
 
-<div class="container">
+<div class="container" ng-controller="AdsController">
     <div class="bs-component col-lg-9">
-        <div class="well row" ng-repeat="ad in data.ads">
+        <div class="well row" ng-repeat="ad in userAds.ads">
             <div class="col-lg-9">
                 <h1>{{ad.title}}</h1>
                 <p class="lead">{{ad.text}}</p>
                 <div class="row">
                     <div class="col-md-4 btn-group-vertical">
-                        <a href="#" class="btn btn-default disabled">Owner</a>
-                        <a href="#" class="btn btn-default disabled">E-mail</a>
-                        <a href="#" class="btn btn-default disabled">Phone</a>
+                        <a href="#" class="btn btn-default disabled">Status</a>
                     </div>
                     <div class="col-md-8 btn-group-vertical">
-                        <a href="#" class="btn btn-default">{{ad.ownerName}}</a>
-                        <a href="#" class="btn btn-default">{{ad.ownerEmail}}</a>
-                        <a href="#" class="btn btn-default">{{ad.ownerPhone}}</a>
+                        <a href="#" class="btn btn-default disabled">{{ad.status}}</a>
+                    </div>
+                </div>
+                <br/>
+                <div class="row" ng-if="ad.status != 'Inactive'">
+                    <div class="col-md-4 btn-group-vertical">
+                        <a href="#" class="btn btn-info" ng-click="deactivateAd(ad.id)">Deactivate</a>
+                    </div>
+                </div>
+                <div class="row" ng-if="ad.status == 'Inactive'">
+                    <div class="col-md-4 btn-group-vertical">
+                        <a href="#" class="btn btn-default">Edit</a>
+                    </div>
+                    <div class="col-md-4 btn-group-vertical">
+                        <a href="#" class="btn btn-primary">Publish Again</a>
+                    </div>
+                    <div class="col-md-4 btn-group-vertical">
+                        <a href="#" class="btn btn-danger">Delete</a>
                     </div>
                 </div>
             </div>

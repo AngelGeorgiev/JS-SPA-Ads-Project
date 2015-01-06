@@ -23,21 +23,35 @@ Advertisements.factory('authentication', function ($http, $log) {
             });
     };
 
+
+    service.GetUserProfile = function (callback) {
+        $http.get('http://softuni-ads.azurewebsites.net/api/user/profile', {headers: this.getHeaders()})
+            .success(function (data, status, headers, config) {
+                callback(data)
+            })
+            .error(function (data, status, headers, config) {
+                $log.warn(data)
+            });
+    };
+
     service.SetCredentials = function (serverData) {
         localStorage['accessToken'] = serverData.access_token;
         localStorage['username'] = serverData.username;
     };
 
-    service.GetCredentials = function () {
-        return {
-            username: localStorage['username'],
-            accessToken: localStorage['accessToken']
-        }
+    service.GetUsername = function () {
+        return localStorage['username'];
     };
 
     service.ClearCredentials = function () {
         localStorage.clear();
     };
+
+    service.getHeaders = function() {
+        return {
+            Authorization: "Bearer " + localStorage['accessToken']
+        };
+    }
 
     return service;
 });
