@@ -38,7 +38,7 @@ Advertisements.factory('mainData', function ($http, $log) {
     data.clearParams = function () {
         data.params.categoryId = null;
         data.params.townId = null;
-        data.params.pageId = null;
+        data.params.startPage = 1;
     };
 
     data.clearParams();

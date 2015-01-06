@@ -1,6 +1,6 @@
 'use strict';
 
-var Advertisements = angular.module('Advertisements', ['ngRoute'])
+var Advertisements = angular.module('Advertisements', ['ngRoute', 'flow', 'ui.bootstrap', 'angular-loading-bar'])
     .config(function ($routeProvider) {
         $routeProvider
             .when('/login', {

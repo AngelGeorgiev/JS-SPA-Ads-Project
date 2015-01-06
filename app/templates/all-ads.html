@@ -3,6 +3,13 @@
 
 <div class="container">
     <div class="bs-component col-lg-9">
+        <div class="col-lg-offset-3">
+            <pagination total-items="data.numItems" ng-model="startPage"
+                        items-per-page="5" ng-change="pagination()"
+                        max-size="5" boundary-links="true">
+            </pagination>
+        </div>
+
         <div class="well row" ng-repeat="ad in data.ads">
             <div class="col-lg-9">
                 <h1>{{ad.title}}</h1>
@@ -35,6 +42,12 @@
                     <img src="" class="pull-right img-responsive img-thumbnail" ng-src="{{ad.imageDataUrl || '/resources/9gag-no.jpg'}}" />
                 </div>
             </div>
+        </div>
+        <div class="col-lg-offset-3">
+            <pagination total-items="data.numItems" ng-model="startPage"
+                        items-per-page="5" ng-change="pagination()"
+                        max-size="5" boundary-links="true">
+            </pagination>
         </div>
     </div>
 

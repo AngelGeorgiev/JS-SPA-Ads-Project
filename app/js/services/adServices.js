@@ -71,7 +71,7 @@ Advertisements.factory('adServices', function ($http, $log) {
 
     adService.clearParams = function () {
         adService.params.status = null;
-        adService.params.pageId = null;
+        adService.params.startPage = 1;
     };
 
     adService.clearParams();

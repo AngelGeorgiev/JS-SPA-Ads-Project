@@ -34,6 +34,13 @@ Advertisements.controller('AdsController', function ($scope, $location, authenti
 
     $scope.statusFilter = function (status) {
         adServices.params.status = status;
+        adServices.params.startPage = 1;
+        $scope.userStartPage = 1;
+        getUserAds();
+    };
+
+    $scope.userPagination = function () {
+        adServices.params.startPage = $scope.userStartPage;
         getUserAds();
     };
 
@@ -42,6 +49,15 @@ Advertisements.controller('AdsController', function ($scope, $location, authenti
             $scope.userAds = resp;
         });
     };
+
+    $scope.$on('flow::fileAdded', function (event, $flow, flowFile) {
+        var reader = new FileReader();
+        reader.onload = function(event) {
+            $scope.fileData = event.target.result.substr(event.target.result.indexOf('base64')+7);
+            $scope.fileName = flowFile.file.name;
+        };
+        reader.readAsDataURL(flowFile.file);
+    });
 
     getUserAds();
 });

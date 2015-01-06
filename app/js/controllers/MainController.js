@@ -21,24 +21,29 @@ Advertisements.controller('MainController', function ($scope, mainData) {
                 var currentTown = $scope.towns.filter(function (town) {
                     return town.id == ad.townId;
                 });
-                ad.townName = currentTown[0].name ? currentTown[0].name : null;
+                ad.townName = currentTown[0] ? currentTown[0].name : null;
             }
 
             $scope.data = resp;
         });
     };
-    
-    $scope.getPageArray = function () {
-        return new Array($scope.data.numPages);
-    };
 
     $scope.townFilter = function (townId) {
         mainData.params.townId = townId;
+        mainData.params.startPage = 1;
+        $scope.startPage = 1;
         getAds();
     };
 
     $scope.categoryFilter = function (categoryId) {
         mainData.params.categoryId = categoryId;
+        mainData.params.startPage = 1;
+        $scope.startPage = 1;
+        getAds();
+    };
+
+    $scope.pagination = function () {
+        mainData.params.startPage = $scope.startPage;
         getAds();
     };
 

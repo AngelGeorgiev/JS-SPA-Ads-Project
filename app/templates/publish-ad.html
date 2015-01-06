@@ -20,14 +20,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 fileinput fileinput-new" data-provides="fileinput">
+                <div class="col-lg-4">
                     <div class="fileinput fileinput-new" data-provides="fileinput">
                         <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
                         <div>
                             <span class="btn btn-info btn-file">
                                 <span class="fileinput-new">Select image</span>
                                 <span class="fileinput-exists">Change</span>
-                                <input id="adImage" type="file" name="adImage" ng-model="adData.image" >
+                                <input type="file" class="form-control" id="adImage" name="adImage" ng-model="adData.image" >
                             </span>
                             <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
                         </div>
@@ -56,6 +56,11 @@
                         <a href="/#/user/home" class="btn btn-default">Cancel</a>
                         <button type="submit" class="btn btn-primary">Publish Ad</button>
                     </div>
+                </div>
+                <div flow-init class="form-group">
+                    <input type="file" flow-btn />
+                    <br />
+                    <img flow-img="$flow.files[0]" width="100px" />
                 </div>
             </fieldset>
         </form>
