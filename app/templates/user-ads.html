@@ -18,18 +18,18 @@
                 <br/>
                 <div class="row" ng-if="ad.status != 'Inactive'">
                     <div class="col-md-4 btn-group-vertical">
-                        <a href="#" class="btn btn-info" ng-click="deactivateAd(ad.id)">Deactivate</a>
+                        <a href="" class="btn btn-info" ng-click="deactivateAd(ad.id)">Deactivate</a>
                     </div>
                 </div>
                 <div class="row" ng-if="ad.status == 'Inactive'">
                     <div class="col-md-4 btn-group-vertical">
-                        <a href="#" class="btn btn-default">Edit</a>
+                        <a href="" class="btn btn-default" ng-click="">Edit</a>
                     </div>
                     <div class="col-md-4 btn-group-vertical">
-                        <a href="#" class="btn btn-primary">Publish Again</a>
+                        <a href="" class="btn btn-primary" ng-click="republishAd(ad.id)">Publish Again</a>
                     </div>
                     <div class="col-md-4 btn-group-vertical">
-                        <a href="#" class="btn btn-danger">Delete</a>
+                        <a href="" class="btn btn-danger" ng-click="deleteAd(ad.id)">Delete</a>
                     </div>
                 </div>
             </div>
@@ -53,17 +53,12 @@
     <div class="bs-component col-lg-3 aside">
         <div class="row">
             <div class="btn-group-vertical col-lg-12">
-                <a href="" class="btn btn-success btn-lg disabled">Categories</a>
-                <a href="" class="btn btn-default" ng-click="categoryFilter()">All</a>
-                <a href="" class="btn btn-default" ng-repeat="category in categories" ng-click="categoryFilter(category.id)">{{category.name}}</a>
-            </div>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="btn-group-vertical col-lg-12">
-                <a href="" class="btn btn-warning btn-lg disabled">Towns</a>
-                <a href="" class="btn btn-default" ng-click="townFilter()">All</a>
-                <a href="" class="btn btn-default" ng-repeat="town in towns" ng-click="townFilter(town.id)">{{town.name}}</a>
+                <a href="" class="btn btn-info btn-lg disabled">Status Filter</a>
+                <a href="" class="btn btn-default" ng-click="statusFilter()">All</a>
+                <a href="" class="btn btn-default" ng-click="statusFilter('Published')">Published</a>
+                <a href="" class="btn btn-default" ng-click="statusFilter('WaitingApproval')">Waiting Approval</a>
+                <a href="" class="btn btn-default" ng-click="statusFilter('Inactive')">Inactive</a>
+                <a href="" class="btn btn-default" ng-click="statusFilter('Rejected')">Rejected</a>
             </div>
         </div>
     </div>

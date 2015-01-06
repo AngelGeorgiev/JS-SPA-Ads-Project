@@ -27,6 +27,10 @@ Advertisements.controller('MainController', function ($scope, mainData) {
             $scope.data = resp;
         });
     };
+    
+    $scope.getPageArray = function () {
+        return new Array($scope.data.numPages);
+    };
 
     $scope.townFilter = function (townId) {
         mainData.params.townId = townId;

@@ -39,7 +39,7 @@ Advertisements.factory('mainData', function ($http, $log) {
         data.params.categoryId = null;
         data.params.townId = null;
         data.params.pageId = null;
-    }
+    };
 
     data.clearParams();
     data.params.pageSize = 5;
