@@ -1,83 +1,62 @@
 'use strict';
 
-Advertisements.factory('adServices', function ($http, $log) {
+Advertisements.factory('adServices', function ($http) {
     var adService = {};
 
     adService.params = {};
 
-    adService.GetUserAds = function (headers, callback) {
+    adService.GetUserAds = function (headers, success, error) {
         $http.get('http://softuni-ads.azurewebsites.net/api/user/ads',
             {
                 params: this.params,
                 headers: headers
             })
             .success(function (data, status, headers, config) {
-                callback(data);
-            })
-            .error(function (data, status, headers, config) {
-                $log.warn(data)
-            });
+                success(data);
+            }).error(error);
     };
 
-    adService.PublishAd = function (adData, headers, callback) {
+    adService.PublishAd = function (adData, headers, success, error) {
         $http.post('http://softuni-ads.azurewebsites.net/api/user/ads', adData, {headers: headers})
             .success(function (data, status, headers, config) {
-                callback(data);
-            })
-            .error(function (data, status, headers, config) {
-                $log.warn(data)
-            });
+                success(data);
+            }).error(error);
     };
 
-    adService.DeactivateAd = function (adId, headers, callback) {
+    adService.DeactivateAd = function (adId, headers, success, error) {
         $http.put('http://softuni-ads.azurewebsites.net/api/user/ads/deactivate/' + adId, {}, {headers: headers})
             .success(function (data, status, headers, config) {
-                callback(data);
-            })
-            .error(function (data, status, headers, config) {
-                $log.warn(data)
-            });
+                success(data);
+            }).error(error);
     };
 
-    adService.GetUserAdById = function (adId, headers, callback) {
+    adService.GetUserAdById = function (adId, headers, success, error) {
         $http.get('http://softuni-ads.azurewebsites.net/api/user/ads/' + adId,
             {headers: headers})
             .success(function (data, status, headers, config) {
-                callback(data);
-            })
-            .error(function (data, status, headers, config) {
-                $log.warn(data)
-            });
+                success(data);
+            }).error(error);
     };
 
-    adService.EditAd = function (currentAd, headers, callback) {
+    adService.EditAd = function (currentAd, headers, success, error) {
         $http.put('http://softuni-ads.azurewebsites.net/api/user/ads/' + currentAd.id, currentAd, {headers: headers})
             .success(function (data, status, headers, config) {
-                callback(data);
-            })
-            .error(function (data, status, headers, config) {
-                $log.warn(data)
-            });
+                success(data);
+            }).error(error);
     };
 
-    adService.DeleteAd = function (adId, headers, callback) {
+    adService.DeleteAd = function (adId, headers, success, error) {
         $http.delete('http://softuni-ads.azurewebsites.net/api/user/ads/' + adId, {headers: headers})
             .success(function (data, status, headers, config) {
-                callback(data);
-            })
-            .error(function (data, status, headers, config) {
-                $log.warn(data)
-            });
+                success(data);
+            }).error(error);
     };
 
-    adService.RepublishAd = function (adId, headers, callback) {
-        $http.put('http://softuni-ads.azurewebsites.net/api/user/ads/publishagain/' + adId, {}, {headers: headers})
+    adService.RepublishAd = function (adId, headers, success, error) {
+        $http.put('http://softuni-ads.azurewebsites.net/api/user/ads/publishAgain/' + adId, {}, {headers: headers})
             .success(function (data, status, headers, config) {
-                callback(data);
-            })
-            .error(function (data, status, headers, config) {
-                $log.warn(data)
-            });
+                success(data);
+            }).error(error);
     };
 
     adService.clearParams = function () {

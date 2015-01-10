@@ -1,38 +1,29 @@
 'use strict';
 
-Advertisements.factory('mainData', function ($http, $log) {
+Advertisements.factory('mainData', function ($http) {
     var data = {};
 
     data.params = {};
 
-    data.getAllAdds = function (success) {
+    data.getAllAdds = function (success, error) {
         $http.get('http://softuni-ads.azurewebsites.net/api/ads', {params: this.params})
-            .success(function (data, status, headers, config) {
+            .success(function (data) {
                 success(data)
-            })
-            .error(function (data, status, headers, config) {
-                $log.warn(data)
-            });
+            }).error(error);
     };
 
-    data.getAllTowns = function (success) {
+    data.getAllTowns = function (success, error) {
         $http.get('http://softuni-ads.azurewebsites.net/api/towns')
-            .success(function (data, status, headers, config) {
+            .success(function (data) {
                 success(data)
-            })
-            .error(function (data, status, headers, config) {
-                $log.warn(data)
-            })
+            }).error(error);
     };
 
-    data.getAllCategories = function (success) {
+    data.getAllCategories = function (success, error) {
         $http.get('http://softuni-ads.azurewebsites.net/api/categories')
-            .success(function (data, status, headers, config) {
+            .success(function (data) {
                 success(data)
-            })
-            .error(function (data, status, headers, config) {
-                $log.warn(data)
-            })
+            }).error(error);
     };
 
     data.clearParams = function () {

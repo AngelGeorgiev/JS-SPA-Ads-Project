@@ -1,56 +1,41 @@
 'use strict';
 
-Advertisements.factory('authentication', function ($http, $log) {
+Advertisements.factory('authentication', function ($http) {
     var service = {};
 
-    service.Login = function (loginData, callback) {
+    service.Login = function (loginData, success, error) {
         $http.post('http://softuni-ads.azurewebsites.net/api/user/login', loginData)
             .success(function (data, status, headers, config) {
-                callback(data);
-            })
-            .error(function (data, status, headers, config) {
-                $log.warn(data)
-            });
+                success(data);
+            }).error(error);
     };
 
-    service.Register = function (registerData, callback) {
+    service.Register = function (registerData, success, error) {
         $http.post('http://softuni-ads.azurewebsites.net/api/user/register', registerData)
             .success(function (data, status, headers, config) {
-                callback(data);
-            })
-            .error(function (data, status, headers, config) {
-                $log.warn(data)
-            });
+                success(data);
+            }).error(error);
     };
 
-    service.GetUserProfile = function (callback) {
+    service.GetUserProfile = function (success, error) {
         $http.get('http://softuni-ads.azurewebsites.net/api/user/profile', {headers: this.GetHeaders()})
             .success(function (data, status, headers, config) {
-                callback(data)
-            })
-            .error(function (data, status, headers, config) {
-                $log.warn(data)
-            });
+                success(data)
+            }).error(error);
     };
 
-    service.EditUserProfile = function (editUserData, callback) {
+    service.EditUserProfile = function (editUserData, success, error) {
         $http.put('http://softuni-ads.azurewebsites.net/api/user/profile', editUserData, {headers: this.GetHeaders()})
             .success(function (data, status, headers, config) {
-                callback(data)
-            })
-            .error(function (data, status, headers, config) {
-                $log.warn(data)
-            });
+                success(data)
+            }).error(error);
     };
 
-    service.ChangePassword = function (passwordData, callback) {
+    service.ChangePassword = function (passwordData, success, error) {
         $http.put('http://softuni-ads.azurewebsites.net/api/user/ChangePassword', passwordData, {headers: this.GetHeaders()})
             .success(function (data, status, headers, config) {
-                callback(data)
-            })
-            .error(function (data, status, headers, config) {
-                $log.warn(data)
-            });
+                success()
+            }).error(error);
     };
 
     service.SetCredentials = function (serverData) {
@@ -61,6 +46,10 @@ Advertisements.factory('authentication', function ($http, $log) {
 
     service.GetUsername = function () {
         return localStorage['username'];
+    };
+
+    service.GetIsAdmin = function () {
+        return localStorage['isAdmin'];
     };
 
     service.ClearCredentials = function () {

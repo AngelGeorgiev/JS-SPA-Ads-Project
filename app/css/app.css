@@ -3,6 +3,10 @@ body {
     hyphens: auto;
 }
 
+legend {
+    text-align: center;
+}
+
 @media (max-width: 767px) {
     body {
         padding-top: 200px;

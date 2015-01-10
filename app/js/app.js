@@ -1,6 +1,6 @@
 'use strict';
 
-var Advertisements = angular.module('Advertisements', ['ngRoute', 'flow', 'ui.bootstrap', 'angular-loading-bar', 'angularFileUpload'])
+var Advertisements = angular.module('Advertisements', ['ngRoute', 'ui.bootstrap', 'angular-loading-bar'])
     .config(function ($routeProvider) {
         $routeProvider
             .when('/login', {
@@ -33,6 +33,34 @@ var Advertisements = angular.module('Advertisements', ['ngRoute', 'flow', 'ui.bo
             })
             .when('/user/ads/edit/:id', {
                 templateUrl:'templates/edit-ad.html',
+                controller:'MainController'
+            })
+            .when('/user/ads/delete/:id', {
+                templateUrl:'templates/delete-ad.html',
+                controller:'MainController'
+            })
+            .when('/admin/home', {
+                templateUrl:'templates/all-ads.html',
+                controller:'MainController'
+            })
+            .when('/admin/ads', {
+                templateUrl:'templates/user-ads.html',
+                controller:'MainController'
+            })
+            .when('/admin/profile', {
+                templateUrl:'templates/edit-user.html',
+                controller:'MainController'
+            })
+            .when('/admin/ads/publish', {
+                templateUrl:'templates/publish-ad.html',
+                controller:'MainController'
+            })
+            .when('/admin/ads/edit/:id', {
+                templateUrl:'templates/edit-ad.html',
+                controller:'MainController'
+            })
+            .when('/admin/ads/delete/:id', {
+                templateUrl:'templates/delete-ad.html',
                 controller:'MainController'
             })
             .otherwise({redirectTo: '/'})

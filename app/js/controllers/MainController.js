@@ -1,8 +1,10 @@
 'use strict';
 
-Advertisements.controller('MainController', function ($scope, $location, mainData, authentication) {
+Advertisements.controller('MainController', function ($scope, $location, mainData, authentication, notifyService) {
 
     $scope.username = authentication.GetUsername();
+    $scope.isAdmin = authentication.GetIsAdmin();
+    $scope.isNotAdmin = (!$scope.isAdmin || $scope.isAdmin == "false");
     if ($scope.username) {
         authentication.GetUserProfile(function (serverData) {
             $scope.userData = serverData;
@@ -16,29 +18,41 @@ Advertisements.controller('MainController', function ($scope, $location, mainDat
 
     var getAds = function () {
 
-        mainData.getAllTowns(function (resp) {
-            $scope.towns = resp;
-        });
+        mainData.getAllTowns(
+            function (serverData) {
+                $scope.towns = serverData;
+            },
+            function () {
+                notifyService.showError("Unsuccessful Connection to Database!")
+            });
 
-        mainData.getAllCategories(function (resp) {
-            $scope.categories = resp;
-        });
+        mainData.getAllCategories(
+            function (serverData) {
+                $scope.categories = serverData;
+            },
+            function () {
+                notifyService.showError("Unsuccessful Connection to Database!")
+            });
         
-        mainData.getAllAdds(function (resp) {
-            for (var key in resp.ads) {
-                var ad = resp.ads[key];
-                var currentCategory = $scope.categories.filter(function (category) {
-                    return category.id == ad.categoryId;
-                });
-                ad.categoryName = currentCategory[0] ? currentCategory[0].name : null;
-                var currentTown = $scope.towns.filter(function (town) {
-                    return town.id == ad.townId;
-                });
-                ad.townName = currentTown[0] ? currentTown[0].name : null;
-            }
+        mainData.getAllAdds(
+            function (serverData) {
+                for (var key in serverData.ads) {
+                    var ad = serverData.ads[key];
+                    var currentCategory = $scope.categories.filter(function (category) {
+                        return category.id == ad.categoryId;
+                    });
+                    ad.categoryName = currentCategory[0] ? currentCategory[0].name : null;
+                    var currentTown = $scope.towns.filter(function (town) {
+                        return town.id == ad.townId;
+                    });
+                    ad.townName = currentTown[0] ? currentTown[0].name : null;
+                }
 
-            $scope.data = resp;
-        });
+                $scope.data = serverData;
+            },
+            function () {
+                notifyService.showError("Unsuccessful Connection to Database!")
+            });
     };
 
     getAds();
