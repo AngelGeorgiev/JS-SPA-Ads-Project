@@ -1,6 +1,6 @@
 'use strict';
 
-var Advertisements = angular.module('Advertisements', ['ngRoute', 'flow', 'ui.bootstrap', 'angular-loading-bar'])
+var Advertisements = angular.module('Advertisements', ['ngRoute', 'flow', 'ui.bootstrap', 'angular-loading-bar', 'angularFileUpload'])
     .config(function ($routeProvider) {
         $routeProvider
             .when('/login', {
@@ -25,6 +25,10 @@ var Advertisements = angular.module('Advertisements', ['ngRoute', 'flow', 'ui.bo
             })
             .when('/user/ads/publish', {
                 templateUrl:'templates/publish-ad.html',
+                controller:'MainController'
+            })
+            .when('/user/ads/edit/:id', {
+                templateUrl:'templates/edit-ad.html',
                 controller:'MainController'
             })
             .otherwise({redirectTo: '/'})

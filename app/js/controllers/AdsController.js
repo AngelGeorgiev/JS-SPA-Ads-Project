@@ -1,10 +1,11 @@
 'use strict';
 
-Advertisements.controller('AdsController', function ($scope, $location, authentication, adServices) {
+Advertisements.controller('AdsController', function ($scope, $location, $routeParams, authentication, adServices) {
 
     $scope.publishAd = function () {
+        $scope.adData.imageDataUrl = document.getElementById('adImageData').getElementsByTagName('img')[0].currentSrc;
         adServices.PublishAd($scope.adData, authentication.getHeaders(), function() {
-                $location.path('/user/ads');
+            $location.path('/user/ads');
         })
     };
 
@@ -14,9 +15,14 @@ Advertisements.controller('AdsController', function ($scope, $location, authenti
         })
     };
 
-    $scope.editAd = function (adId) {
-        adServices.EditAd(adId, authentication.getHeaders(), function () {
-            getUserAds();
+    $scope.displayAd = function (adId) {
+        $location.path('/user/ads/edit/'+adId);
+    };
+
+    $scope.editAd = function () {
+        $scope.currentAd.imageDataUrl = document.getElementById('adImageData').getElementsByTagName('img')[0].currentSrc;
+        adServices.EditAd($scope.currentAd, authentication.getHeaders(), function () {
+            $location.path('/user/ads');
         })
     };
 
@@ -44,20 +50,22 @@ Advertisements.controller('AdsController', function ($scope, $location, authenti
         getUserAds();
     };
 
-    var getUserAds = function () {
-        adServices.GetUserAds(authentication.getHeaders(), function (resp) {
-            $scope.userAds = resp;
-        });
+    $scope.removeImage = function () {
+        $scope.currentAd.imageDataUrl = "";
+    }
+
+    var getUserAds = function (adId) {
+
+        if (!adId) {
+            adServices.GetUserAds(authentication.getHeaders(), function (resp) {
+                $scope.userAds = resp;
+            });
+        } else {
+            adServices.GetUserAdById(adId, authentication.getHeaders(), function (resp) {
+                $scope.currentAd = resp;
+            })
+        }
     };
 
-    $scope.$on('flow::fileAdded', function (event, $flow, flowFile) {
-        var reader = new FileReader();
-        reader.onload = function(event) {
-            $scope.fileData = event.target.result.substr(event.target.result.indexOf('base64')+7);
-            $scope.fileName = flowFile.file.name;
-        };
-        reader.readAsDataURL(flowFile.file);
-    });
-
-    getUserAds();
+    getUserAds($routeParams.id);
 });

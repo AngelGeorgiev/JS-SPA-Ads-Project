@@ -39,8 +39,19 @@ Advertisements.factory('adServices', function ($http, $log) {
             });
     };
 
-    adService.EditAd = function (adId, headers, callback) {
-        $http.put('http://softuni-ads.azurewebsites.net/api/user/ads/' + adId, {}, {headers: headers})
+    adService.GetUserAdById = function (adId, headers, callback) {
+        $http.get('http://softuni-ads.azurewebsites.net/api/user/ads/' + adId,
+            {headers: headers})
+            .success(function (data, status, headers, config) {
+                callback(data);
+            })
+            .error(function (data, status, headers, config) {
+                $log.warn(data)
+            });
+    };
+
+    adService.EditAd = function (currentAd, headers, callback) {
+        $http.put('http://softuni-ads.azurewebsites.net/api/user/ads/' + currentAd.id, currentAd, {headers: headers})
             .success(function (data, status, headers, config) {
                 callback(data);
             })
