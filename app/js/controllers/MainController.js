@@ -1,8 +1,21 @@
 'use strict';
 
-Advertisements.controller('MainController', function ($scope, mainData) {
+Advertisements.controller('MainController', function ($scope, $location, mainData, authentication) {
+
+    $scope.username = authentication.GetUsername();
+    if ($scope.username) {
+        authentication.GetUserProfile(function (serverData) {
+            $scope.userData = serverData;
+        })
+    }
+    var path = $location.path();
+    if ((path.indexOf("user") != -1) && !authentication.isLoggedIn()) {
+        $location.path('/');
+    }
+
 
     var getAds = function () {
+
         mainData.getAllTowns(function (resp) {
             $scope.towns = resp;
         });
@@ -28,6 +41,8 @@ Advertisements.controller('MainController', function ($scope, mainData) {
         });
     };
 
+    getAds();
+
     $scope.townFilter = function (townId) {
         mainData.params.townId = townId;
         mainData.params.startPage = 1;
@@ -46,6 +61,4 @@ Advertisements.controller('MainController', function ($scope, mainData) {
         mainData.params.startPage = $scope.startPage;
         getAds();
     };
-
-    getAds();
 });

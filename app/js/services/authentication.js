@@ -23,9 +23,28 @@ Advertisements.factory('authentication', function ($http, $log) {
             });
     };
 
-
     service.GetUserProfile = function (callback) {
-        $http.get('http://softuni-ads.azurewebsites.net/api/user/profile', {headers: this.getHeaders()})
+        $http.get('http://softuni-ads.azurewebsites.net/api/user/profile', {headers: this.GetHeaders()})
+            .success(function (data, status, headers, config) {
+                callback(data)
+            })
+            .error(function (data, status, headers, config) {
+                $log.warn(data)
+            });
+    };
+
+    service.EditUserProfile = function (editUserData, callback) {
+        $http.put('http://softuni-ads.azurewebsites.net/api/user/profile', editUserData, {headers: this.GetHeaders()})
+            .success(function (data, status, headers, config) {
+                callback(data)
+            })
+            .error(function (data, status, headers, config) {
+                $log.warn(data)
+            });
+    };
+
+    service.ChangePassword = function (passwordData, callback) {
+        $http.put('http://softuni-ads.azurewebsites.net/api/user/ChangePassword', passwordData, {headers: this.GetHeaders()})
             .success(function (data, status, headers, config) {
                 callback(data)
             })
@@ -37,6 +56,7 @@ Advertisements.factory('authentication', function ($http, $log) {
     service.SetCredentials = function (serverData) {
         localStorage['accessToken'] = serverData.access_token;
         localStorage['username'] = serverData.username;
+        localStorage['isAdmin'] = serverData.isAdmin ? serverData.isAdmin : false;
     };
 
     service.GetUsername = function () {
@@ -47,11 +67,15 @@ Advertisements.factory('authentication', function ($http, $log) {
         localStorage.clear();
     };
 
-    service.getHeaders = function() {
+    service.GetHeaders = function() {
         return {
             Authorization: "Bearer " + localStorage['accessToken']
         };
-    }
+    };
+
+    service.isLoggedIn = function () {
+        return localStorage['accessToken'];
+    };
 
     return service;
 });

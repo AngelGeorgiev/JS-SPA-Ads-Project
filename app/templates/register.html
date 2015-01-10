@@ -39,15 +39,15 @@
                 <div class="form-group">
                     <label for="inputPhone" class="col-lg-2 control-label">Phone</label>
                     <div class="col-lg-10">
-                        <input type="text" class="form-control" id="inputPhone" ng-model="registerData.phone" placeholder="Name">
+                        <input type="text" class="form-control" id="inputPhone" ng-model="registerData.phone" placeholder="Phone">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="selectTown" class="col-lg-2 control-label">Town</label>
                     <div class="col-lg-10">
                         <select class="form-control" id="selectTown" ng-model="registerData.townId">
-                            <option value="" ng-model="registerData.townId">Select Town</option>
-                            <option ng-repeat="town in towns" value="{{town.id}}" ng-model="registerData.townId">{{town.name}}</option>
+                            <option value="">Select Town</option>
+                            <option ng-repeat="town in towns" value="{{town.id}}">{{town.name}}</option>
                         </select>
                     </div>
                 </div>

@@ -23,6 +23,10 @@ var Advertisements = angular.module('Advertisements', ['ngRoute', 'flow', 'ui.bo
                 templateUrl:'templates/user-ads.html',
                 controller:'MainController'
             })
+            .when('/user/profile', {
+                templateUrl:'templates/edit-user.html',
+                controller:'MainController'
+            })
             .when('/user/ads/publish', {
                 templateUrl:'templates/publish-ad.html',
                 controller:'MainController'
@@ -34,4 +38,3 @@ var Advertisements = angular.module('Advertisements', ['ngRoute', 'flow', 'ui.bo
             .otherwise({redirectTo: '/'})
 
     });
-angular.module('Authentication', []);

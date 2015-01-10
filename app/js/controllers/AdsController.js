@@ -4,13 +4,13 @@ Advertisements.controller('AdsController', function ($scope, $location, $routePa
 
     $scope.publishAd = function () {
         $scope.adData.imageDataUrl = document.getElementById('adImageData').getElementsByTagName('img')[0].currentSrc;
-        adServices.PublishAd($scope.adData, authentication.getHeaders(), function() {
+        adServices.PublishAd($scope.adData, authentication.GetHeaders(), function() {
             $location.path('/user/ads');
         })
     };
 
     $scope.deactivateAd = function (adId) {
-        adServices.DeactivateAd(adId, authentication.getHeaders(), function () {
+        adServices.DeactivateAd(adId, authentication.GetHeaders(), function () {
             getUserAds();
         })
     };
@@ -20,20 +20,31 @@ Advertisements.controller('AdsController', function ($scope, $location, $routePa
     };
 
     $scope.editAd = function () {
-        $scope.currentAd.imageDataUrl = document.getElementById('adImageData').getElementsByTagName('img')[0].currentSrc;
-        adServices.EditAd($scope.currentAd, authentication.getHeaders(), function () {
+        var imageElement = document.getElementById('adImageData').getElementsByTagName('img')[0];
+        if (imageElement) {
+            if (imageElement.currentSrc != $scope.currentAd.imageDataUrl) {
+                $scope.currentAd.imageDataUrl = imageElement.currentSrc;
+                $scope.currentAd.changeImage = true;
+            } else {
+                $scope.currentAd.changeImage = false;
+            }
+        } else {
+            $scope.currentAd.changeImage = true;
+            $scope.currentAd.imageDataUrl = "";
+        }
+        adServices.EditAd($scope.currentAd, authentication.GetHeaders(), function () {
             $location.path('/user/ads');
         })
     };
 
     $scope.deleteAd = function (adId) {
-        adServices.DeleteAd(adId, authentication.getHeaders(), function () {
+        adServices.DeleteAd(adId, authentication.GetHeaders(), function () {
             getUserAds();
         })
     };
 
     $scope.republishAd = function (adId) {
-        adServices.RepublishAd(adId, authentication.getHeaders(), function () {
+        adServices.RepublishAd(adId, authentication.GetHeaders(), function () {
             getUserAds();
         })
     };
@@ -57,11 +68,11 @@ Advertisements.controller('AdsController', function ($scope, $location, $routePa
     var getUserAds = function (adId) {
 
         if (!adId) {
-            adServices.GetUserAds(authentication.getHeaders(), function (resp) {
+            adServices.GetUserAds(authentication.GetHeaders(), function (resp) {
                 $scope.userAds = resp;
             });
         } else {
-            adServices.GetUserAdById(adId, authentication.getHeaders(), function (resp) {
+            adServices.GetUserAdById(adId, authentication.GetHeaders(), function (resp) {
                 $scope.currentAd = resp;
             })
         }
