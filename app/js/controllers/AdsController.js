@@ -3,7 +3,8 @@
 Advertisements.controller('AdsController', function ($scope, $location, $routeParams, authentication, adServices, notifyService) {
 
     $scope.publishAd = function () {
-        $scope.adData.imageDataUrl = document.getElementById('adImageData').getElementsByTagName('img')[0].currentSrc;
+        var imageHtml = document.getElementById('adImageData').getElementsByTagName('img')[0];
+        $scope.adData.imageDataUrl = imageHtml ? imageHtml.currentSrc : "";
         adServices.PublishAd($scope.adData, authentication.GetHeaders(),
             function() {
                 notifyService.showInfo("Successful Ad Publish!");
