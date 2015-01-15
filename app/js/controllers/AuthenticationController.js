@@ -1,6 +1,7 @@
 'use strict';
 
-Advertisements.controller('AuthenticationController', function ($scope, $location, $route, authentication, mainData, adServices, notifyService) {
+Advertisements.controller('AuthenticationController', function ($scope, $location, $route,
+                        authentication, mainData, adServices, adminServices, notifyService) {
 
     var ClearData = function () {
         $scope.loginData = "";
@@ -15,7 +16,11 @@ Advertisements.controller('AuthenticationController', function ($scope, $locatio
                 notifyService.showInfo("Successful Login!");
                 authentication.SetCredentials(serverData);
                 ClearData();
-                $location.path('/user/home');
+                if(authentication.GetIsAdmin() == "true") {
+                    $location.path('/admin/home');
+                } else {
+                    $location.path('/user/home');
+                }
             },
             function (serverError) {
                 notifyService.showError("Unsuccessful Login!", serverError)
@@ -69,6 +74,7 @@ Advertisements.controller('AuthenticationController', function ($scope, $locatio
 
     $scope.clear = function () {
         mainData.clearParams();
+        adminServices.clearParams();
         $route.reload();
     };
 

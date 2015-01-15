@@ -1,38 +1,40 @@
 'use strict';
 
-Advertisements.factory('authentication', function ($http) {
+Advertisements.factory('authentication', function ($http, baseServiceUrl) {
     var service = {};
 
+    var serviceUrl = baseServiceUrl + '/user';
+
     service.Login = function (loginData, success, error) {
-        $http.post('http://softuni-ads.azurewebsites.net/api/user/login', loginData)
+        $http.post(serviceUrl + '/login', loginData)
             .success(function (data, status, headers, config) {
                 success(data);
             }).error(error);
     };
 
     service.Register = function (registerData, success, error) {
-        $http.post('http://softuni-ads.azurewebsites.net/api/user/register', registerData)
+        $http.post(serviceUrl + '/register', registerData)
             .success(function (data, status, headers, config) {
                 success(data);
             }).error(error);
     };
 
     service.GetUserProfile = function (success, error) {
-        $http.get('http://softuni-ads.azurewebsites.net/api/user/profile', {headers: this.GetHeaders()})
+        $http.get(serviceUrl + '/profile', {headers: this.GetHeaders()})
             .success(function (data, status, headers, config) {
                 success(data)
             }).error(error);
     };
 
     service.EditUserProfile = function (editUserData, success, error) {
-        $http.put('http://softuni-ads.azurewebsites.net/api/user/profile', editUserData, {headers: this.GetHeaders()})
+        $http.put(serviceUrl + '/profile', editUserData, {headers: this.GetHeaders()})
             .success(function (data, status, headers, config) {
                 success(data)
             }).error(error);
     };
 
     service.ChangePassword = function (passwordData, success, error) {
-        $http.put('http://softuni-ads.azurewebsites.net/api/user/ChangePassword', passwordData, {headers: this.GetHeaders()})
+        $http.put(serviceUrl + '/ChangePassword', passwordData, {headers: this.GetHeaders()})
             .success(function (data, status, headers, config) {
                 success()
             }).error(error);

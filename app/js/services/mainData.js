@@ -1,26 +1,26 @@
 'use strict';
 
-Advertisements.factory('mainData', function ($http) {
+Advertisements.factory('mainData', function ($http, baseServiceUrl) {
     var data = {};
 
     data.params = {};
 
     data.getAllAdds = function (success, error) {
-        $http.get('http://softuni-ads.azurewebsites.net/api/ads', {params: this.params})
+        $http.get(baseServiceUrl + '/ads', {params: this.params})
             .success(function (data) {
                 success(data)
             }).error(error);
     };
 
     data.getAllTowns = function (success, error) {
-        $http.get('http://softuni-ads.azurewebsites.net/api/towns')
+        $http.get(baseServiceUrl + '/towns')
             .success(function (data) {
                 success(data)
             }).error(error);
     };
 
     data.getAllCategories = function (success, error) {
-        $http.get('http://softuni-ads.azurewebsites.net/api/categories')
+        $http.get(baseServiceUrl + '/categories')
             .success(function (data) {
                 success(data)
             }).error(error);

@@ -49,6 +49,7 @@ Advertisements.controller('MainController', function ($scope, $location, mainDat
                 }
 
                 $scope.data = serverData;
+                window.scrollTo(0,0);
             },
             function () {
                 notifyService.showError("Unsuccessful Connection to Database!")

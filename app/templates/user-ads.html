@@ -4,7 +4,8 @@
 <div class="container" ng-controller="AdsController">
     <div class="bs-component col-lg-9">
         <div class="col-lg-offset-3">
-            <pagination total-items="userAds.numItems" ng-model="userStartPage"
+            <pagination ng-if="userAds.numPages > 1"
+                        total-items="userAds.numItems" ng-model="userStartPage"
                         items-per-page="5" ng-change="userPagination()"
                         max-size="5" boundary-links="true">
             </pagination>
@@ -58,7 +59,8 @@
             </div>
         </div>
         <div class="col-lg-offset-3">
-            <pagination total-items="userAds.numItems" ng-model="userStartPage"
+            <pagination ng-if="userAds.numPages > 1"
+                        total-items="userAds.numItems" ng-model="userStartPage"
                         items-per-page="5" ng-change="userPagination()"
                         max-size="5" boundary-links="true">
             </pagination>

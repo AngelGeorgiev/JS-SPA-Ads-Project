@@ -1,0 +1,110 @@
+
+<div ng-include="'templates/navbar.html'"></div>
+
+<div class="container" ng-controller="AdminController">
+    <div class="bs-component col-lg-9">
+        <div class="col-lg-offset-3">
+            <pagination ng-if="ads.numPages > 1"
+                        total-items="ads.numItems" ng-model="adminStartPage"
+                        items-per-page="5" ng-change="adminPagination()"
+                        max-size="5" boundary-links="true">
+            </pagination>
+        </div>
+
+        <div class="well row" ng-repeat="ad in ads.ads">
+            <div class="row">
+                <div class="col-lg-9">
+                    <h1>{{ad.title}}</h1>
+                    <p class="lead">{{ad.text}}</p>
+                    <div class="row">
+                        <div class="col-md-4 btn-group-vertical">
+                            <a href="" class="btn btn-default disabled">Owner</a>
+                            <a href="" class="btn btn-default disabled">E-mail</a>
+                            <a href="" class="btn btn-default disabled">Phone</a>
+                        </div>
+                        <div class="col-md-8 btn-group-vertical">
+                            <a href="" class="btn btn-default disabled">{{ad.ownerName}}</a>
+                            <a href="" class="btn btn-default disabled">{{ad.ownerEmail}}</a>
+                            <a href="" class="btn btn-default disabled">{{ad.ownerPhone}}</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 btn-group-vertical">
+                            <a href="" class="btn btn-default disabled">Status</a>
+                        </div>
+                        <div class="col-md-8 btn-group-vertical">
+                            <a href="" class="btn btn-default disabled">{{ad.status}}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="row">
+                        <p class="pull-right">{{ad.date | date: "dd MMMM yyyy"}}</p>
+                    </div>
+                    <div class="row">
+                        <div class="bs-component pull-right">
+                            <span class="label label-success">{{ad.categoryName}}</span>
+                            <span class="label label-warning">{{ad.townName}}</span>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <img src="" class="pull-right img-responsive img-thumbnail" ng-src="{{ad.imageDataUrl || '/resources/9gag-no.jpg'}}" />
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-lg-3 btn-group-vertical">
+                    <a href="" ng-click="approveAd(ad.id)" class="btn btn-success">Approve</a>
+                </div>
+                <div class="col-lg-3 btn-group-vertical">
+                    <a href="" ng-click="rejectAd(ad.id)" class="btn btn-warning">Reject</a>
+                </div>
+                <div class="col-lg-3 btn-group-vertical">
+                    <a href="" ng-click="displayAd(ad.id)" class="btn btn-default">Edit</a>
+                </div>
+                <div class="col-lg-3 btn-group-vertical">
+                    <a href="" ng-click="displayDeleteAd(ad.id)" class="btn btn-danger">Delete</a>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-lg-offset-3">
+            <pagination ng-if="ads.numPages > 1"
+                        total-items="ads.numItems" ng-model="adminStartPage"
+                        items-per-page="5" ng-change="adminPagination()"
+                        max-size="5" boundary-links="true">
+            </pagination>
+        </div>
+    </div>
+
+    <div class="bs-component col-lg-3 aside">
+        <div class="row">
+            <div class="btn-group-vertical col-lg-12">
+                <a href="" class="btn btn-primary btn-lg disabled">Status Filter</a>
+                <a href="" class="btn btn-default" ng-click="adminStatusFilter()">All</a>
+                <a href="" class="btn btn-default" ng-click="adminStatusFilter('Published')">Published</a>
+                <a href="" class="btn btn-default" ng-click="adminStatusFilter('WaitingApproval')">Waiting Approval</a>
+                <a href="" class="btn btn-default" ng-click="adminStatusFilter('Inactive')">Inactive</a>
+                <a href="" class="btn btn-default" ng-click="adminStatusFilter('Rejected')">Rejected</a>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="btn-group-vertical col-lg-12">
+                <a href="" class="btn btn-success btn-lg disabled">Categories</a>
+                <a href="" class="btn btn-default" ng-click="adminCategoryFilter()">All</a>
+                <a href="" class="btn btn-default" ng-repeat="category in categories" ng-click="adminCategoryFilter(category.id)">{{category.name}}</a>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="btn-group-vertical col-lg-12">
+                <a href="" class="btn btn-warning btn-lg disabled">Towns</a>
+                <a href="" class="btn btn-default" ng-click="adminTownFilter()">All</a>
+                <a href="" class="btn btn-default" ng-repeat="town in towns" ng-click="adminTownFilter(town.id)">{{town.name}}</a>
+            </div>
+        </div>
+    </div>
+</div>

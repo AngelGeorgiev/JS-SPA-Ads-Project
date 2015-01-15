@@ -1,6 +1,7 @@
 'use strict';
 
-Advertisements.controller('AdsController', function ($scope, $location, $routeParams, authentication, adServices, notifyService) {
+Advertisements.controller('AdsController', function ($scope, $location, $routeParams,
+                                 authentication, adServices, adminServices, notifyService) {
 
     $scope.publishAd = function () {
         var imageHtml = document.getElementById('adImageData').getElementsByTagName('img')[0];
@@ -47,14 +48,25 @@ Advertisements.controller('AdsController', function ($scope, $location, $routePa
             $scope.currentAd.changeImage = true;
             $scope.currentAd.imageDataUrl = "";
         }
-        adServices.EditAd($scope.currentAd, authentication.GetHeaders(),
-            function () {
-                notifyService.showInfo("Successful Ad Edit!");
-                $location.path('/user/ads');
-            },
-            function (serverError) {
-                notifyService.showError("Unsuccessful Ad Edit!", serverError)
-            })
+        if($scope.isNotAdmin) {
+            adServices.EditAd($scope.currentAd, authentication.GetHeaders(),
+                function () {
+                    notifyService.showInfo("Successful Ad Edit!");
+                    $location.path('/user/ads');
+                },
+                function (serverError) {
+                    notifyService.showError("Unsuccessful Ad Edit!", serverError)
+                })
+        } else {
+            adminServices.EditAd($scope.currentAd, authentication.GetHeaders(),
+                function () {
+                    notifyService.showInfo("Successful Ad Edit!");
+                    $location.path('/user/ads');
+                },
+                function (serverError) {
+                    notifyService.showError("Unsuccessful Ad Edit!", serverError)
+                })
+        }
     };
 
     $scope.deleteAd = function () {
@@ -101,17 +113,12 @@ Advertisements.controller('AdsController', function ($scope, $location, $routePa
             adServices.GetUserAds(authentication.GetHeaders(),
                 function (resp) {
                     $scope.userAds = resp;
-                },
-                function () {
-                    notifyService.showError("Unsuccessful Connection to Database!")
+                    window.scrollTo(0,0);
                 });
         } else {
             adServices.GetUserAdById(adId, authentication.GetHeaders(),
                 function (resp) {
                     $scope.currentAd = resp;
-                },
-                function () {
-                    notifyService.showError("Unsuccessful Connection to Database!")
                 })
         }
     };
