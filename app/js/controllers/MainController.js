@@ -2,6 +2,7 @@
 
 Advertisements.controller('MainController', function ($scope, $location, mainData, authentication, notifyService) {
 
+    $scope.startPage = 1;
     $scope.username = authentication.GetUsername();
     $scope.isAdmin = authentication.GetIsAdmin();
     $scope.isNotAdmin = (!$scope.isAdmin || $scope.isAdmin == "false");
@@ -60,6 +61,7 @@ Advertisements.controller('MainController', function ($scope, $location, mainDat
 
     $scope.townFilter = function (townId) {
         mainData.params.townId = townId;
+        $scope.townId = townId;
         mainData.params.startPage = 1;
         $scope.startPage = 1;
         getAds();
@@ -67,6 +69,7 @@ Advertisements.controller('MainController', function ($scope, $location, mainDat
 
     $scope.categoryFilter = function (categoryId) {
         mainData.params.categoryId = categoryId;
+        $scope.categoryId = categoryId;
         mainData.params.startPage = 1;
         $scope.startPage = 1;
         getAds();

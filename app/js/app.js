@@ -2,7 +2,7 @@
 
 var Advertisements = angular.module('Advertisements', ['ngRoute', 'ui.bootstrap', 'angular-loading-bar']);
 
-Advertisements.constant('baseServiceUrl', 'http://localhost:1337/api');
+Advertisements.constant('baseServiceUrl', 'http://softuni-ads.azurewebsites.net/api');
 
 Advertisements.config(function ($routeProvider) {
     $routeProvider

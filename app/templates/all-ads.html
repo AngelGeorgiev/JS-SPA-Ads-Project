@@ -59,16 +59,16 @@
         <div class="row">
             <div class="btn-group-vertical col-lg-12">
                 <a href="" class="btn btn-success btn-lg disabled">Categories</a>
-                <a href="" class="btn btn-default" ng-click="categoryFilter()">All</a>
-                <a href="" class="btn btn-default" ng-repeat="category in categories" ng-click="categoryFilter(category.id)">{{category.name}}</a>
+                <a href="" class="btn btn-default" ng-class="{active: category.id == null}" ng-click="categoryFilter()">All</a>
+                <a href="" class="btn btn-default" ng-class="{active: category.id == categoryId}" ng-repeat="category in categories" ng-click="categoryFilter(category.id)">{{category.name}}</a>
             </div>
         </div>
         <hr>
         <div class="row">
             <div class="btn-group-vertical col-lg-12">
                 <a href="" class="btn btn-warning btn-lg disabled">Towns</a>
-                <a href="" class="btn btn-default" ng-click="townFilter()">All</a>
-                <a href="" class="btn btn-default" ng-repeat="town in towns" ng-click="townFilter(town.id)">{{town.name}}</a>
+                <a href="" class="btn btn-default" ng-class="{active: town.id == null}" ng-click="townFilter()">All</a>
+                <a href="" class="btn btn-default" ng-class="{active: town.id == townId}" ng-repeat="town in towns" ng-click="townFilter(town.id)">{{town.name}}</a>
             </div>
         </div>
     </div>
